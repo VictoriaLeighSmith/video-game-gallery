@@ -21,28 +21,53 @@ app.get("/", (request, response) => {
 
 app.get("/game/:id", (request, response) => {
   const id = parseInt(request.params.id, 10);
-  const gameDetails = getGameDetailsById(id);
-  response.json(gameDetails);
+  if (isNaN(id) || id <= 0) {
+    return response.status(400).send("Invalid ID");
+  }
+
+  const foundGame = getGameDetailsById(id);
+  if (!foundGame) {
+    return response.status(404).send("Game not found");
+  }
+  const gameGenre = foundGame.genre;
+  const sameGenreGames = VideoGames.filter(
+    (game) => gameGenre === game.genre && game.id !== foundGame.id,
+  );
+
+  const recommendedGames = sameGenreGames.slice(0, 3);
+
+  response.render("game-details", {
+    game: foundGame,
+    recommendedGames: recommendedGames,
+  });
 });
 
 app.get("/top-rated", (request, response) => {
-  const topRated = getTopRatedGames(15);
-  response.json(topRated);
+  const topRated = getTopRatedGames();
+
+  response.render("top-rated", { topRated: topRated });
 });
 
 app.get("/random", (request, response) => {
-  const getRandom = selectRandomGameId();
-  response.json(getRandom);
+  const getRandomID = selectRandomGameId();
+  const getRandomGame = getGameDetailsById(getRandomID);
+
+  response.render("random", { randomGame: getRandomGame });
 });
 
 app.get("/hidden-gems", (request, response) => {
   const hiddenGems = getHiddenGems();
-  response.json(hiddenGems);
+
+  response.render("hidden-gems", { hiddenGems: hiddenGems });
 });
 
 app.get("/genre/:genre", (request, response) => {
-  const genre = getGamesByGenre(request.params.genre, 5);
-  response.json(genre);
+  const foundGenre = getGamesByGenre(request.params.genre, 5);
+  if (foundGenre.length === 0) {
+    return response.status(404).send("Genre not found");
+  }
+
+  response.render("genre", { genre: foundGenre });
 });
 
 const port = 3000;
