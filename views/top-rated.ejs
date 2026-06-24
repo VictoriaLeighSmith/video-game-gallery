@@ -1,0 +1,20 @@
+<%- include('partials/header', { title: "Top Rated Video Games" }) %>
+
+<body>
+    <main class="main-content">
+        <h1>Top Rated Games</h1>
+
+        <ul>
+            <% topRated.forEach((game) => { %>
+                <li>
+                    <a href="/game/<%= game.id %>"><%= game.title %></a>
+
+                    <p>Release Year: <%= game.releaseYear %></p>
+                    <p>Rating: <%= game.averageRating === null ? "This game has not yet been rated." : game.averageRating%></p>
+                    <p>Description: <%= game.description %></p>
+                </li>
+            <% }) %>
+        </ul>
+    </main>
+</body>
+</html>

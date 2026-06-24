@@ -1,0 +1,25 @@
+<%- include('partials/header', {title: "Game Details: "}) %>
+    <body>
+        <main class="main-content quote-details-content">
+            <h1>Game Details</h1>
+            <p class="game-text">Title: <%= game.title%></p>
+            <p class="game-text">Description: <%= game.description%></p>
+            <p class="game-text">Release Year: <%= game.releaseYear%></p>
+            <p class="game-text">Developer: <%= game.developer%></p>
+            <p class="game-text">Rating: <%= game.averageRating === null ? "This game has not yet been rated." : game.averageRating%></p>
+            <p class="game-text">Genre: <%= game.genre%></p>
+            
+            <a href="/">Back to home</a>
+
+            <h2>You May Also Like</h2>
+            <ul>
+  <% recommendedGames.forEach((game) => { %>
+    <li>
+      <a href="/game/<%= game.id %>"><%= game.title %></a>
+    </li>
+  <% }) %>
+</ul>
+           
+        </main>
+    </body>
+</html>
