@@ -1,20 +1,23 @@
 <%- include('partials/header', { title: "Games by Genre" }) %>
 
-<body>
     <main class="main-content">
         <h1>Games by Genre</h1>
 
         <ul>
-            <% genre.forEach((game) => { %>
+            <% games.forEach((game) => { %>
                 <li>
                     <a href="/game/<%= game.id %>"><%= game.title %></a>
 
                     <p>Release Year: <%= game.releaseYear %></p>
-                    <p>Rating: <%= game.averageRating === null ? "This game has not yet been rated." : game.averageRating%></p>
+                    <p>
+                        Rating:
+                        <%= game.averageRating === null
+                            ? "This game has not yet been rated."
+                            : game.averageRating %>
+                    </p>
                     <p>Description: <%= game.description %></p>
                 </li>
             <% }) %>
         </ul>
     </main>
-</body>
-</html>
+<%- include('partials/footer') %>

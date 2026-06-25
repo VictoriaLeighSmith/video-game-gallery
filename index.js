@@ -1,6 +1,6 @@
 const express = require("express");
 const path = require("path");
-const { VideoGames, Genres } = require("./utils/data");
+const { VideoGames } = require("./utils/data");
 const {
   getGameDetailsById,
   getGamesByGenre,
@@ -16,22 +16,43 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
 
 app.get("/", (request, response) => {
-  response.render("index");
+  const randomGames = [];
+
+  while (randomGames.length < 9) {
+    const randomId = selectRandomGameId();
+    const randomGame = getGameDetailsById(randomId);
+
+    const alreadyAdded = randomGames.some((game) => game.id === randomGame.id);
+
+    if (!alreadyAdded) {
+      randomGames.push(randomGame);
+    }
+  }
+
+  response.render("index", {
+    randomGames: randomGames,
+  });
 });
 
 app.get("/game/:id", (request, response) => {
   const id = parseInt(request.params.id, 10);
+
   if (isNaN(id) || id <= 0) {
     return response.status(400).send("Invalid ID");
   }
 
   const foundGame = getGameDetailsById(id);
+
   if (!foundGame) {
     return response.status(404).send("Game not found");
   }
+
   const gameGenre = foundGame.genre;
+
   const sameGenreGames = VideoGames.filter(
-    (game) => gameGenre === game.genre && game.id !== foundGame.id,
+    (recommendedGame) =>
+      recommendedGame.genre === gameGenre &&
+      recommendedGame.id !== foundGame.id,
   );
 
   const recommendedGames = sameGenreGames.slice(0, 3);
@@ -43,34 +64,130 @@ app.get("/game/:id", (request, response) => {
 });
 
 app.get("/top-rated", (request, response) => {
-  const topRated = getTopRatedGames();
+  const topRatedGames = getTopRatedGames(15);
 
-  response.render("top-rated", { topRated: topRated });
+  response.render("top-rated", {
+    games: topRatedGames,
+  });
 });
 
 app.get("/random", (request, response) => {
-  const getRandomID = selectRandomGameId();
-  const getRandomGame = getGameDetailsById(getRandomID);
+  const randomId = selectRandomGameId();
 
-  response.render("random", { randomGame: getRandomGame });
+  response.redirect(`/game/${randomId}`);
 });
 
 app.get("/hidden-gems", (request, response) => {
-  const hiddenGems = getHiddenGems();
+  const hiddenGemGames = getHiddenGems();
 
-  response.render("hidden-gems", { hiddenGems: hiddenGems });
+  response.render("hidden-gems", {
+    games: hiddenGemGames,
+  });
 });
 
 app.get("/genre/:genre", (request, response) => {
-  const foundGenre = getGamesByGenre(request.params.genre, 5);
-  if (foundGenre.length === 0) {
+  const genreGames = getGamesByGenre(request.params.genre, 5);
+
+  if (genreGames.length === 0) {
     return response.status(404).send("Genre not found");
   }
 
-  response.render("genre", { genre: foundGenre });
+  response.render("genre", {
+    games: genreGames,
+  });
+});
+
+// REST API routes
+
+app.get("/api/games", (request, response) => {
+  const games = VideoGames.map((game) => {
+    return {
+      title: game.title,
+      genre: game.genre,
+      releaseYear: game.releaseYear,
+      rating: game.averageRating,
+    };
+  });
+
+  response.json({
+    data: games,
+  });
+});
+
+app.get("/api/games/top-rated", (request, response) => {
+  const games = getTopRatedGames(10);
+
+  response.json({
+    data: games,
+  });
+});
+
+app.get("/api/games/genre/:genre", (request, response) => {
+  const games = getGamesByGenre(request.params.genre, VideoGames.length);
+
+  if (games.length === 0) {
+    return response.status(404).json({
+      error: "No games found for this genre",
+    });
+  }
+
+  response.json({
+    data: games,
+  });
+});
+
+app.get("/api/games/:id/recommendations", (request, response) => {
+  const id = parseInt(request.params.id, 10);
+
+  if (isNaN(id) || id <= 0) {
+    return response.status(400).json({
+      error: "Invalid ID",
+    });
+  }
+
+  const foundGame = getGameDetailsById(id);
+
+  if (!foundGame) {
+    return response.status(404).json({
+      error: "Game not found",
+    });
+  }
+
+  const recommendedGames = VideoGames.filter(
+    (recommendedGame) =>
+      recommendedGame.genre === foundGame.genre &&
+      recommendedGame.id !== foundGame.id,
+  ).slice(0, 3);
+
+  response.json({
+    data: recommendedGames,
+  });
+});
+
+app.get("/api/games/:id", (request, response) => {
+  const id = parseInt(request.params.id, 10);
+
+  if (isNaN(id) || id <= 0) {
+    return response.status(400).json({
+      error: "Invalid ID",
+    });
+  }
+
+  const foundGame = getGameDetailsById(id);
+
+  if (!foundGame) {
+    return response.status(404).json({
+      error: "Game not found",
+    });
+  }
+
+  response.json({
+    data: foundGame,
+  });
 });
 
 const port = 3000;
+
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });

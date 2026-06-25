@@ -1,11 +1,23 @@
-<html lang="en">
-    <head>
-        <title>Video Game Gallery</title>
-        <link rel="stylesheet" type="text/css" href="./styles.css">
-    </head>
-    <body>
-        <main class="main-content">
-            <h1>Video Game Gallery</h1>
-        </main>
-    </body>
-</html>
+<%- include('partials/header', { title: "Home" }) %>
+
+    <main class="main-content">
+        <h1>Video Game Gallery</h1>
+
+        <ul>
+            <% randomGames.forEach((randomGame) => { %>
+                <li>
+                    <a href="/game/<%= randomGame.id %>"><%= randomGame.title %></a>
+
+                    <p>Release Year: <%= randomGame.releaseYear %></p>
+                    <p>
+                        Rating:
+                        <%= randomGame.averageRating === null
+                            ? "This game has not yet been rated."
+                            : randomGame.averageRating %>
+                    </p>
+                
+                </li>
+            <% }) %>
+        </ul>
+    </main>
+<%- include('partials/footer') %>
