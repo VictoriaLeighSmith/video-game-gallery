@@ -1,11 +1,10 @@
 <%- include('partials/header', { title: "Top Rated Video Games" }) %>
 
-<body>
     <main class="main-content">
         <h1>Top Rated Games</h1>
 
         <ul>
-            <% topRated.forEach((game) => { %>
+            <% games.forEach((game) => { %>
                 <li>
                     <a href="/game/<%= game.id %>"><%= game.title %></a>
 
@@ -16,5 +15,4 @@
             <% }) %>
         </ul>
     </main>
-</body>
-</html>
+<%- include('partials/footer') %>
