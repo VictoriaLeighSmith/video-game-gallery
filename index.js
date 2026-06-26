@@ -7,6 +7,7 @@ const {
   getTopRatedGames,
   selectRandomGameId,
   getHiddenGems,
+  getRecommendationsByGameId,
 } = require("./utils/gameUtils");
 
 const app = express();
@@ -22,15 +23,19 @@ app.get("/", (request, response) => {
     const randomId = selectRandomGameId();
     const randomGame = getGameDetailsById(randomId);
 
+    if (!randomGame) {
+      continue;
+    }
+
     const alreadyAdded = randomGames.some((game) => game.id === randomGame.id);
 
-    if (!alreadyAdded) {
+    if (randomGame && !alreadyAdded) {
       randomGames.push(randomGame);
     }
   }
 
   response.render("index", {
-    randomGames: randomGames,
+    randomGames,
   });
 });
 
@@ -47,19 +52,11 @@ app.get("/game/:id", (request, response) => {
     return response.status(404).send("Game not found");
   }
 
-  const gameGenre = foundGame.genre;
-
-  const sameGenreGames = VideoGames.filter(
-    (recommendedGame) =>
-      recommendedGame.genre === gameGenre &&
-      recommendedGame.id !== foundGame.id,
-  );
-
-  const recommendedGames = sameGenreGames.slice(0, 3);
+  const recommendedGames = getRecommendationsByGameId(id, 3);
 
   response.render("game-details", {
     game: foundGame,
-    recommendedGames: recommendedGames,
+    recommendedGames,
   });
 });
 
@@ -86,7 +83,12 @@ app.get("/hidden-gems", (request, response) => {
 });
 
 app.get("/genre/:genre", (request, response) => {
-  const genreGames = getGamesByGenre(request.params.genre, 5);
+  const genre = request.params.genre.trim();
+  if (!genre) {
+    return response.status(400).send("Invalid genre");
+  }
+
+  const genreGames = getGamesByGenre(genre, 5);
 
   if (genreGames.length === 0) {
     return response.status(404).send("Genre not found");
@@ -153,11 +155,7 @@ app.get("/api/games/:id/recommendations", (request, response) => {
     });
   }
 
-  const recommendedGames = VideoGames.filter(
-    (recommendedGame) =>
-      recommendedGame.genre === foundGame.genre &&
-      recommendedGame.id !== foundGame.id,
-  ).slice(0, 3);
+  const recommendedGames = getRecommendationsByGameId(id, 3);
 
   response.json({
     data: recommendedGames,
