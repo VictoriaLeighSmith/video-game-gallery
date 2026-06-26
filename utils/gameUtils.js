@@ -71,12 +71,31 @@ function getHiddenGems() {
       game.numberOfReviews <= 1000,
   );
 
+  
   // Sort by highest rating before displaying
   const hiddenGemsSorted = hiddenGems.toSorted(
     (a, b) => b.averageRating - a.averageRating,
   );
 
   return hiddenGemsSorted;
+}
+
+/**
+ * Get three recommended games by genre
+ * @param {number} id - The game id
+ * @param {number} limit - The maximum number of games to retrieve
+ * @returns {*} - An array of recommended games matching the genre of the original game
+ */ 
+function getRecommendationsByGameId(id, limit = 3) {
+  const foundGame = getGameDetailsById(id);
+
+  if (!foundGame) {
+    return null;
+  }
+
+  return VideoGames.filter(
+    (game) => game.genre === foundGame.genre && game.id !== foundGame.id
+  ).slice(0, limit);
 }
 
 // Export the functions to be used in other modules
@@ -86,6 +105,7 @@ module.exports = {
   getGameDetailsById,
   selectRandomGameId,
   getHiddenGems,
+  getRecommendationsByGameId,
 };
 
 // Tests

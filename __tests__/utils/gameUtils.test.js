@@ -5,6 +5,7 @@ const {
   getGameDetailsById,
   selectRandomGameId,
   getHiddenGems,
+  getRecommendationsByGameId,
 } = require("../../utils/gameUtils");
 
 describe("Game Utility Functions", () => {
@@ -146,6 +147,37 @@ describe("Game Utility Functions", () => {
       });
 
       expect(gamesSorted).toBe(true);
+    });
+  });
+
+  describe("getRecommendationsByGameId", () => {
+    test("Test that the original game id is not included in the recommendations", () => {
+      const originalId = 2;
+      const games = getRecommendationsByGameId(originalId, 3);
+      const includesOriginalGame = games.some((game) => game.id === originalId);
+
+      expect(includesOriginalGame).toBe(false);
+    });
+
+    test("Test that recommended games match the same genre as the original", () => {
+      const games = getRecommendationsByGameId(1, 3);
+      const allMatchGenre = games.every((game) => game.genre === "Adventure");
+
+      expect(allMatchGenre).toBe(true);
+    });
+
+    test("Test that 3 games are returned by default", () => {
+      const recommendedGames = getRecommendationsByGameId(4);
+      const recommendedGamesLength = recommendedGames.length;
+
+      expect(recommendedGamesLength).toBe(3);
+    });
+
+    test("Test that an invalid id returns null", () => {
+      const invalidId = -1;
+      const games = getRecommendationsByGameId(invalidId, 3);
+
+      expect(games).toBe(null);
     });
   });
 });
