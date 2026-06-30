@@ -1,23 +1,35 @@
 <%- include('partials/header', { title: "Hidden Gems" }) %>
 
-    <main class="main-content">
-        <h1>Hidden Gems</h1>
+<main class="main-content">
+  <h1>Hidden Gems</h1>
 
-        <ul>
-            <% games.forEach((game) => { %>
-                <li>
-                    <a href="/game/<%= game.id %>"><%= game.title %></a>
+  <ul class="game-list">
+    <% games.forEach((game) => { %>
+    <li>
+      <a class="game-card pixel-corners" href="/game/<%= game.id %>">
+        <div class="title-rating-container">
+          <h2><%= game.title %></h2>
 
-                    <p>Release Year: <%= game.releaseYear %></p>
-                    <p>
-                        Rating:
-                        <%= game.averageRating === null
-                            ? "This game has not yet been rated."
-                            : game.averageRating %>
-                    </p>
-                    <p>Description: <%= game.description %></p>
-                </li>
-            <% }) %>
-        </ul>
-    </main>
+          <p class="game-rating">
+            <img class="star-rating-icon" src="/images/star-rating-icon.png" />
+            <%= game.averageRating === null
+                                ? "N/A"
+                                : game.averageRating %>
+          </p>
+        </div>
+
+        <div class="game-info-container">
+          <p class="release-year"><%= game.releaseYear %></p>
+          <p>&bull;</p>
+          <p class="genre"><%= game.genre %></p>
+        </div>
+
+        <div class="game-description">
+          <p><%= game.description %></p>
+        </div>
+      </a>
+    </li>
+    <% }) %>
+  </ul>
+</main>
 <%- include('partials/footer') %>
