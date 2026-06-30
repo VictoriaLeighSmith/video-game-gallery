@@ -1,23 +1,33 @@
 <%- include('partials/header', { title: "Home" }) %>
 
-    <main class="main-content">
-        <h1>Video Game Gallery</h1>
+<main class="main-content">
+  <div class="index-logo-container">
+    <img src="/images/recoloured-icon.png" class="index-logo" />
+  </div>
 
-        <ul>
-            <% randomGames.forEach((randomGame) => { %>
-                <li>
-                    <a href="/game/<%= randomGame.id %>"><%= randomGame.title %></a>
+  <ul class="game-list">
+    <% randomGames.forEach((randomGame) => { %>
+    <li>
+      <a class="game-card pixel-corners" href="/game/<%= randomGame.id %>">
+        <div class="title-rating-container">
+          <h2><%= randomGame.title %></h2>
 
-                    <p>Release Year: <%= randomGame.releaseYear %></p>
-                    <p>
-                        Rating:
-                        <%= randomGame.averageRating === null
-                            ? "This game has not yet been rated."
-                            : randomGame.averageRating %>
-                    </p>
-                
-                </li>
-            <% }) %>
-        </ul>
-    </main>
+          <p class="game-rating">
+            <img class="star-rating-icon" src="/images/star-rating-icon.png" />
+            <%= randomGame.averageRating === null
+                                ? "N/A"
+                                : randomGame.averageRating %>
+          </p>
+        </div>
+
+        <div class="game-info-container">
+          <p class="release-year"><%= randomGame.releaseYear %></p>
+          <p>&bull;</p>
+          <p class="genre"><%= randomGame.genre %></p>
+        </div>
+      </a>
+    </li>
+    <% }) %>
+  </ul>
+</main>
 <%- include('partials/footer') %>

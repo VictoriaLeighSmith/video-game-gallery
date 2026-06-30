@@ -1,41 +1,47 @@
 <%- include('partials/header', {title: "Game Details: "}) %>
 
+<main class="main-content quote-details-content">
+  <h1>Game Details</h1>
 
-    <main class="main-content quote-details-content">
-        <h1>Game Details</h1>
+  <div class="game-details-container pixel-corners">
+    <h2 class="game-details-title"><%= game.title %></h2>
 
-        <p class="game-text">Title: <%= game.title %></p>
-        <p class="game-text">Description: <%= game.description %></p>
-        <p class="game-text">Release Year: <%= game.releaseYear %></p>
-        <p class="game-text">Developer: <%= game.developer %></p>
-        <p class="game-text">
-            Rating:
-            <%= game.averageRating === null ? "This game has not yet been rated." : game.averageRating %>
-        </p>
-        <p class="game-text">Genre: <%= game.genre %></p>
+    <p class="game-text">Description: <%= game.description %></p>
+    <p class="game-text">Release Year: <%= game.releaseYear %></p>
+    <p class="game-text">Developer: <%= game.developer %></p>
+    <p class="game-text">
+      Rating: <%= game.averageRating === null ? "N/A" : game.averageRating %>
+    </p>
+    <p class="game-text">Genre: <%= game.genre %></p>
 
-        <a href="/" class="back-link">Back to Home</a>
+    <a href="/" class="back-link">Back to Home</a>
+  </div>
 
-        <h2>You May Also Like</h2>
+  <h2 class="recommended-title">You May Also Like</h2>
 
-      <ul>
+  <ul class="game-list">
     <% recommendedGames.forEach((recommendedGame) => { %>
-        <li>
-            <a href="/game/<%= recommendedGame.id %>">
-                <%= recommendedGame.title %>
-            </a>
+    <li>
+      <a class="game-card pixel-corners" href="/game/<%= recommendedGame.id %>">
+        <div class="title-rating-container">
+          <h2><%= recommendedGame.title %></h2>
 
-            <p>Release Year: <%= recommendedGame.releaseYear %></p>
-            <p>
-                Rating:
-                <%= recommendedGame.averageRating === null
-                    ? "This game has not yet been rated."
-                    : recommendedGame.averageRating %>
-            </p>
-        </li>
+          <p class="game-rating">
+            <img class="star-rating-icon" src="/images/star-rating-icon.png" />
+            <%= recommendedGame.averageRating === null
+                                ? "N/A"
+                                : recommendedGame.averageRating %>
+          </p>
+        </div>
+
+        <div class="game-info-container">
+          <p class="release-year"><%= recommendedGame.releaseYear %></p>
+          <p>&bull;</p>
+          <p class="genre"><%= recommendedGame.genre %></p>
+        </div>
+      </a>
+    </li>
     <% }) %>
-</ul>
-
-    </main>
-    <%- include('partials/footer') %>
-
+  </ul>
+</main>
+<%- include('partials/footer') %>

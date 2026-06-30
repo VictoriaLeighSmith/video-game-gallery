@@ -232,7 +232,7 @@ const VideoGames = [
     released: true,
   },
   {
-    title: "God of War (2018)",
+    title: "God of War",
     description:
       "A third-person action-adventure featuring Kratos and his son, Atreus.",
     developer: "Santa Monica Studio",
@@ -394,7 +394,7 @@ const VideoGames = [
   {
     title: "Stardew Valley",
     description:
-      "An open-ended, country-life RPG where players inherit their grandfather's dilapidated farm.",
+      "A relaxing farming RPG where you build a new life in the country.",
     developer: "ConcernedApe",
     releaseYear: 2016,
     genre: Genres.RPG,
@@ -405,7 +405,7 @@ const VideoGames = [
   {
     title: "Medieval Dynasty",
     description:
-      "An open-world survival RPG where you build a village, manage resources, and establish a medieval dynasty across generations.",
+      "A medieval survival game where you build and manage your own village.",
     developer: "Render Cube",
     releaseYear: 2021,
     genre: Genres.SIMULATION,
@@ -415,8 +415,7 @@ const VideoGames = [
   },
   {
     title: "This Bed We Made",
-    description:
-      "A narrative mystery game set in a 1950s hotel where you investigate guests' secrets while working as a curious housekeeper.",
+    description: "A narrative mystery game set in a 1950s hotel.",
     developer: "Lowbirth Games",
     releaseYear: 2023,
     genre: Genres.ADVENTURE,
@@ -427,7 +426,7 @@ const VideoGames = [
   {
     title: "Firewatch",
     description:
-      "A first-person mystery adventure set in the Wyoming wilderness where a fire lookout uncovers strange events during a lonely summer.",
+      "A first-person mystery adventure set in the Wyoming wilderness.",
     developer: "Campo Santo",
     releaseYear: 2016,
     genre: Genres.ADVENTURE,
@@ -437,8 +436,7 @@ const VideoGames = [
   },
   {
     title: "Hogwarts Legacy",
-    description:
-      "An open-world action RPG set in the Wizarding World where players attend Hogwarts and uncover an ancient magical mystery.",
+    description: "An open-world RPG set in the Wizarding World.",
     developer: "Avalanche Software",
     releaseYear: 2023,
     genre: Genres.ACTION,
@@ -449,7 +447,7 @@ const VideoGames = [
   {
     title: "Life is Strange",
     description:
-      "A story-driven adventure where a photography student discovers she can rewind time and must make difficult choices that shape the future.",
+      "A story-driven adventure about time travel and difficult choices.",
     developer: "Dontnod Entertainment",
     releaseYear: 2015,
     genre: Genres.ADVENTURE,
@@ -460,7 +458,7 @@ const VideoGames = [
   {
     title: "Gone Home",
     description:
-      "A first-person exploration game where you return home to an empty house and uncover your family's story through letters, notes, and personal belongings.",
+      "A first-person exploration game about uncovering a family's story.",
     developer: "Fullbright",
     releaseYear: 2013,
     genre: Genres.ADVENTURE,
@@ -470,8 +468,7 @@ const VideoGames = [
   },
   {
     title: "L.A. Noire",
-    description:
-      "A detective adventure set in 1940s Los Angeles where players investigate crimes, interrogate suspects, and solve cases using clues and deduction.",
+    description: "A detective adventure set in 1940s Los Angeles.",
     developer: "Team Bondi",
     releaseYear: 2011,
     genre: Genres.ADVENTURE,
@@ -481,8 +478,7 @@ const VideoGames = [
   },
   {
     title: "Kingdom Come: Deliverance",
-    description:
-      "A realistic medieval RPG where players forge their own path through 15th-century Bohemia as the son of a blacksmith seeking justice.",
+    description: "A realistic medieval RPG set in 15th-century Bohemia.",
     developer: "Warhorse Studios",
     releaseYear: 2018,
     genre: Genres.RPG,
@@ -492,8 +488,7 @@ const VideoGames = [
   },
   {
     title: "Until Dawn",
-    description:
-      "A cinematic horror adventure where every choice determines who survives a terrifying night on Blackwood Mountain.",
+    description: "A cinematic horror adventure where every choice matters.",
     developer: "Supermassive Games",
     releaseYear: 2015,
     genre: Genres.HORROR,
@@ -504,7 +499,7 @@ const VideoGames = [
   {
     title: "The Last of Us",
     description:
-      "A post-apocalyptic action adventure following Joel and Ellie as they journey across a devastated United States while fighting infected and hostile survivors.",
+      "A post-apocalyptic adventure about survival and unlikely companionship.",
     developer: "Naughty Dog",
     releaseYear: 2013,
     genre: Genres.ACTION,
@@ -514,8 +509,7 @@ const VideoGames = [
   },
   {
     title: "Thimbleweed Park",
-    description:
-      "A point-and-click mystery adventure where two FBI agents investigate a bizarre murder in a strange town filled with eccentric characters and dark secrets.",
+    description: "A point-and-click mystery set in a strange small town.",
     developer: "Terrible Toybox",
     releaseYear: 2017,
     genre: Genres.ADVENTURE,
@@ -526,7 +520,7 @@ const VideoGames = [
   {
     title: "Sherlock Holmes: Crimes & Punishments",
     description:
-      "A detective adventure where players solve six intricate cases as Sherlock Holmes, gathering evidence, interrogating suspects, and drawing their own conclusions.",
+      "A detective adventure featuring Sherlock Holmes solving complex cases.",
     developer: "Frogwares",
     releaseYear: 2014,
     genre: Genres.ADVENTURE,

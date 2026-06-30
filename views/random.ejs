@@ -3,16 +3,16 @@
     <main class="main-content">
         <h1>Top Rated Games</h1>
 
-        <ul>
+        <ul class="game-list">
             <% games.forEach((game) => { %>
-                <li>
+                <li class="game-card">
                     <a href="/game/<%= game.id %>"><%= game.title %></a>
 
                     <p>Release Year: <%= game.releaseYear %></p>
                     <p>
                         Rating:
                         <%= game.averageRating === null
-                            ? "This game has not yet been rated."
+                            ? "N/A"
                             : game.averageRating %>
                     </p>
                     <p>Description: <%= game.description %></p>
