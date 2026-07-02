@@ -84,11 +84,13 @@ app.get("/hidden-gems", (request, response) => {
 
 app.get("/genre/:genre", (request, response) => {
   const genre = request.params.genre.trim();
+  const numToDisplay = parseInt(request.query.limit, 10) || 9;
+
   if (!genre) {
     return response.status(400).send("Invalid genre");
   }
 
-  const genreGames = getGamesByGenre(genre, 5);
+  const genreGames = getGamesByGenre(genre, numToDisplay);
 
   if (genreGames.length === 0) {
     return response.status(404).send("Genre not found");
