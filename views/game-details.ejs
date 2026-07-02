@@ -6,15 +6,59 @@
   <div class="game-details-container pixel-corners">
     <h2 class="game-details-title"><%= game.title %></h2>
 
-    <p class="game-text">Description: <%= game.description %></p>
-    <p class="game-text">Release Year: <%= game.releaseYear %></p>
-    <p class="game-text">Developer: <%= game.developer %></p>
-    <p class="game-text">
-      Rating: <%= game.averageRating === null ? "N/A" : game.averageRating %>
-    </p>
-    <p class="game-text">Genre: <%= game.genre %></p>
+    <hr />
 
-    <a href="/" class="back-link">Back to Home</a>
+    <div class="game-details-description">
+      <p class="game-text"><%= game.description %></p>
+    </div>
+
+    <div class="game-details-info">
+      <div class="game-details-item">
+        <div class="game-details-icon">
+          <img src="/images/calendar-icon.png" />
+        </div>
+
+        <div class="game-details-text">
+          <h3 class="game-details-info-title">Release Year</h3>
+          <p class="mono-font"><%= game.releaseYear %></p>
+        </div>
+      </div>
+
+      <div class="game-details-item">
+        <div class="game-details-icon">
+          <img src="/images/developer-icon.png" />
+        </div>
+
+        <div class="game-details-text">
+          <h3 class="game-details-info-title">Developer</h3>
+          <p class="mono-font"><%= game.developer %></p>
+        </div>
+      </div>
+
+      <div class="game-details-item">
+        <div class="game-details-icon">
+          <img src="/images/yellow-star.png" />
+        </div>
+
+        <div class="game-details-text">
+          <h3 class="game-details-info-title">Rating</h3>
+          <p class="mono-font">
+            <%= game.averageRating === null ? "N/A" : game.averageRating %>
+          </p>
+        </div>
+      </div>
+
+      <div class="game-details-item">
+        <div class="game-details-icon">
+          <img src="/images/controller-icon-2.png" />
+        </div>
+
+        <div class="game-details-text">
+          <h3 class="game-details-info-title">Genre</h3>
+          <p class="mono-font"><%= game.genre %></p>
+        </div>
+      </div>
+    </div>
   </div>
 
   <h2 class="recommended-title">You May Also Like</h2>
@@ -22,24 +66,29 @@
   <ul class="game-list">
     <% recommendedGames.forEach((recommendedGame) => { %>
     <li>
-      <a class="game-card pixel-corners" href="/game/<%= recommendedGame.id %>">
-        <div class="title-rating-container">
-          <h2><%= recommendedGame.title %></h2>
+      <div class="game-card-glow">
+        <a
+          class="game-card pixel-corners"
+          href="/game/<%= recommendedGame.id %>"
+        >
+          <div class="title-rating-container">
+            <h2><%= recommendedGame.title %></h2>
 
-          <p class="game-rating">
-            <img class="star-rating-icon" src="/images/star-rating-icon.png" />
-            <%= recommendedGame.averageRating === null
+            <p class="game-rating">
+              <img class="star-rating-icon" src="/images/yellow-star.png" />
+              <%= recommendedGame.averageRating === null
                                 ? "N/A"
                                 : recommendedGame.averageRating %>
-          </p>
-        </div>
+            </p>
+          </div>
 
-        <div class="game-info-container">
-          <p class="release-year"><%= recommendedGame.releaseYear %></p>
-          <p>&bull;</p>
-          <p class="genre"><%= recommendedGame.genre %></p>
-        </div>
-      </a>
+          <div class="game-info-container">
+            <p class="release-year"><%= recommendedGame.releaseYear %></p>
+            <p>&bull;</p>
+            <p class="genre"><%= recommendedGame.genre %></p>
+          </div>
+        </a>
+      </div>
     </li>
     <% }) %>
   </ul>
