@@ -6,28 +6,30 @@
   <ul class="game-list">
     <% games.forEach((game) => { %>
     <li>
-      <a class="game-card pixel-corners" href="/game/<%= game.id %>">
-        <div class="title-rating-container">
-          <h2><%= game.title %></h2>
+      <div class="game-card-glow">
+        <a class="game-card pixel-corners" href="/game/<%= game.id %>">
+          <div class="title-rating-container">
+            <h2><%= game.title %></h2>
 
-          <p class="game-rating">
-            <img class="star-rating-icon" src="/images/star-rating-icon.png" />
-            <%= game.averageRating === null
+            <p class="game-rating">
+              <img class="star-rating-icon" src="/images/yellow-star.png" />
+              <%= game.averageRating === null
                                 ? "N/A"
                                 : game.averageRating %>
-          </p>
-        </div>
+            </p>
+          </div>
 
-        <div class="game-info-container">
-          <p class="release-year"><%= game.releaseYear %></p>
-          <p>&bull;</p>
-          <p class="genre"><%= game.genre %></p>
-        </div>
+          <div class="game-info-container">
+            <p class="release-year"><%= game.releaseYear %></p>
+            <p>&bull;</p>
+            <p class="genre"><%= game.genre %></p>
+          </div>
 
-        <div class="game-description">
-          <p><%= game.description %></p>
-        </div>
-      </a>
+          <div class="game-description">
+            <p><%= game.description %></p>
+          </div>
+        </a>
+      </div>
     </li>
     <% }) %>
   </ul>

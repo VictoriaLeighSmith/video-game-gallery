@@ -8,24 +8,26 @@
   <ul class="game-list">
     <% randomGames.forEach((randomGame) => { %>
     <li>
-      <a class="game-card pixel-corners" href="/game/<%= randomGame.id %>">
-        <div class="title-rating-container">
-          <h2><%= randomGame.title %></h2>
+      <div class="game-card-glow">
+        <a class="game-card pixel-corners" href="/game/<%= randomGame.id %>">
+          <div class="title-rating-container">
+            <h2><%= randomGame.title %></h2>
 
-          <p class="game-rating">
-            <img class="star-rating-icon" src="/images/star-rating-icon.png" />
-            <%= randomGame.averageRating === null
+            <p class="game-rating">
+              <img class="star-rating-icon" src="/images/yellow-star.png" />
+              <%= randomGame.averageRating === null
                                 ? "N/A"
                                 : randomGame.averageRating %>
-          </p>
-        </div>
+            </p>
+          </div>
 
-        <div class="game-info-container">
-          <p class="release-year"><%= randomGame.releaseYear %></p>
-          <p>&bull;</p>
-          <p class="genre"><%= randomGame.genre %></p>
-        </div>
-      </a>
+          <div class="game-info-container">
+            <p class="release-year"><%= randomGame.releaseYear %></p>
+            <p>&bull;</p>
+            <p class="genre"><%= randomGame.genre %></p>
+          </div>
+        </a>
+      </div>
     </li>
     <% }) %>
   </ul>
