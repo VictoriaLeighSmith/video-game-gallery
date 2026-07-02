@@ -21,7 +21,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 30px;
+  gap: 40px;
   padding: 24px;
 
   position: sticky;
@@ -47,6 +47,7 @@ nav a:hover {
   width: 100%;
   max-width: 1100px;
   margin: 40px auto;
+  padding: 0 20px;
 }
 
 .main-content h1 {
@@ -55,7 +56,7 @@ nav a:hover {
   text-align: center;
   font-size: 32px;
   margin-top: 10px;
-  margin-bottom: 48px;
+  margin-bottom: 56px;
   color: #0099ff;
   filter: drop-shadow(0 0 12px rgba(0, 153, 255, 0.35));
 }
