@@ -71,7 +71,6 @@ function getHiddenGems() {
       game.numberOfReviews <= 1000,
   );
 
-  
   // Sort by highest rating before displaying
   const hiddenGemsSorted = hiddenGems.toSorted(
     (a, b) => b.averageRating - a.averageRating,
@@ -85,7 +84,7 @@ function getHiddenGems() {
  * @param {number} id - The game id
  * @param {number} limit - The maximum number of games to retrieve
  * @returns {*} - An array of recommended games matching the genre of the original game
- */ 
+ */
 function getRecommendationsByGameId(id, limit = 3) {
   const foundGame = getGameDetailsById(id);
 
@@ -94,7 +93,7 @@ function getRecommendationsByGameId(id, limit = 3) {
   }
 
   return VideoGames.filter(
-    (game) => game.genre === foundGame.genre && game.id !== foundGame.id
+    (game) => game.genre === foundGame.genre && game.id !== foundGame.id,
   ).slice(0, limit);
 }
 
@@ -107,10 +106,3 @@ module.exports = {
   getHiddenGems,
   getRecommendationsByGameId,
 };
-
-// Tests
-// console.log(getGameDetailsById(0));
-// console.log(getGamesByGenre("Adventure", 7));
-// console.log(getTopRatedGames(12));
-// console.log(getHiddenGems());
-// console.log(selectRandomGameId());
