@@ -9,6 +9,7 @@ const {
 } = require("../../utils/gameUtils");
 
 describe("Game Utility Functions", () => {
+  // ---------- getGamesByGenre Tests ----------
   describe("getGamesByGenre", () => {
     test("Make sure that only games of the specified genre are returned", () => {
       const games = getGamesByGenre("Role-Playing Game", 10);
@@ -42,8 +43,19 @@ describe("Game Utility Functions", () => {
 
       expect(games).toHaveLength(0);
     });
+
+    test("Make sure genre matching isn't case sensitive", () => {
+      const games = getGamesByGenre("adventure", 5);
+      const adventureGamesCheck = games.every(
+        (game) => game.genre === "Adventure",
+      );
+
+      expect(games.length).toBeGreaterThan(0);
+      expect(adventureGamesCheck).toBe(true);
+    });
   });
 
+  // ---------- getTopRatedGames Tests ----------
   describe("getTopRatedGames", () => {
     test("Make sure that exact number of specified games is returned", () => {
       const games = getTopRatedGames(12);
@@ -77,12 +89,13 @@ describe("Game Utility Functions", () => {
     });
   });
 
+  // ---------- getGameDetailsById Tests ----------
   describe("getGameDetailsById", () => {
     test("Test that correct game is returned with matching id", () => {
-      const game = getGameDetailsById(23);
+      const game = getGameDetailsById(1);
 
-      expect(game.id).toBe(23);
-      expect(game.title).toBe("Persona 5 Royal");
+      expect(game.id).toBe(1);
+      expect(game.title).toBe("The Legend of Zelda: Breath of the Wild");
     });
 
     test("Test that undefined is returned when an invalid id is provided", () => {
@@ -98,6 +111,7 @@ describe("Game Utility Functions", () => {
     });
   });
 
+  // ---------- selectRandomGameId Tests ----------
   describe("selectRandomGameId", () => {
     test("Test that an integer is returned", () => {
       const gameId = selectRandomGameId();
@@ -113,6 +127,7 @@ describe("Game Utility Functions", () => {
     });
   });
 
+  // ---------- getHiddenGems Tests ----------
   describe("getHiddenGems", () => {
     test("Test that only games with an average rating of 9.0 and higher are returned", () => {
       const games = getHiddenGems();
@@ -150,6 +165,7 @@ describe("Game Utility Functions", () => {
     });
   });
 
+  // ---------- getRecommendationsByGameId Tests ----------
   describe("getRecommendationsByGameId", () => {
     test("Test that the original game id is not included in the recommendations", () => {
       const originalId = 2;

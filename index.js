@@ -16,6 +16,8 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
 
+// ---------- Page Routes ----------
+// Display home page
 app.get("/", (request, response) => {
   const randomGames = [];
 
@@ -29,7 +31,7 @@ app.get("/", (request, response) => {
 
     const alreadyAdded = randomGames.some((game) => game.id === randomGame.id);
 
-    if (randomGame && !alreadyAdded) {
+    if (!alreadyAdded) {
       randomGames.push(randomGame);
     }
   }
@@ -39,6 +41,7 @@ app.get("/", (request, response) => {
   });
 });
 
+// Display game details page
 app.get("/game/:id", (request, response) => {
   const id = parseInt(request.params.id, 10);
 
@@ -60,6 +63,7 @@ app.get("/game/:id", (request, response) => {
   });
 });
 
+// Display top rated games page
 app.get("/top-rated", (request, response) => {
   const topRatedGames = getTopRatedGames(15);
 
@@ -68,12 +72,14 @@ app.get("/top-rated", (request, response) => {
   });
 });
 
+// Redirect to random game's details page
 app.get("/random", (request, response) => {
   const randomId = selectRandomGameId();
 
   response.redirect(`/game/${randomId}`);
 });
 
+// Display hidden gems page
 app.get("/hidden-gems", (request, response) => {
   const hiddenGemGames = getHiddenGems();
 
@@ -82,6 +88,7 @@ app.get("/hidden-gems", (request, response) => {
   });
 });
 
+// Display games by genre page (can be accessed through URL)
 app.get("/genre/:genre", (request, response) => {
   const genre = request.params.genre.trim();
   const numToDisplay = parseInt(request.query.limit, 10) || 9;
@@ -97,12 +104,13 @@ app.get("/genre/:genre", (request, response) => {
   }
 
   response.render("genre", {
+    genre,
     games: genreGames,
   });
 });
 
-// REST API routes
-
+// ---------- REST API Routes ----------
+// Get all games
 app.get("/api/games", (request, response) => {
   const games = VideoGames.map((game) => {
     return {
@@ -118,6 +126,7 @@ app.get("/api/games", (request, response) => {
   });
 });
 
+// Get top rated games
 app.get("/api/games/top-rated", (request, response) => {
   const games = getTopRatedGames(10);
 
@@ -126,8 +135,17 @@ app.get("/api/games/top-rated", (request, response) => {
   });
 });
 
+// Get games by genre
 app.get("/api/games/genre/:genre", (request, response) => {
-  const games = getGamesByGenre(request.params.genre, VideoGames.length);
+  const genre = request.params.genre.trim();
+
+  if (!genre) {
+    return response.status(400).json({
+      error: "Invalid genre",
+    });
+  }
+
+  const games = getGamesByGenre(genre, VideoGames.length);
 
   if (games.length === 0) {
     return response.status(404).json({
@@ -140,6 +158,7 @@ app.get("/api/games/genre/:genre", (request, response) => {
   });
 });
 
+// Return recommended games based on game id
 app.get("/api/games/:id/recommendations", (request, response) => {
   const id = parseInt(request.params.id, 10);
 
@@ -164,6 +183,7 @@ app.get("/api/games/:id/recommendations", (request, response) => {
   });
 });
 
+// Get all details of specified game (by id)
 app.get("/api/games/:id", (request, response) => {
   const id = parseInt(request.params.id, 10);
 

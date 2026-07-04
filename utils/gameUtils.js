@@ -1,4 +1,4 @@
-const { VideoGames, Genres } = require("./data");
+const { VideoGames } = require("./data");
 
 /**
  * Get `x` games by genre
@@ -7,8 +7,12 @@ const { VideoGames, Genres } = require("./data");
  * @returns {*} - An array of games matching the genre
  */
 function getGamesByGenre(genre, x) {
+  const normalizedGenre = genre.trim().toLowerCase();
+
   // Use filter to filter the games by the specified genre
-  const videoGameByGenre = VideoGames.filter((game) => game.genre === genre);
+  const videoGameByGenre = VideoGames.filter(
+    (game) => game.genre.toLowerCase() === normalizedGenre,
+  );
 
   // Display the amount of games specified by the user
   return videoGameByGenre.slice(0, x);
