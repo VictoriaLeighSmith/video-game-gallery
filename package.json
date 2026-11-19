@@ -7,7 +7,7 @@
     "start": "node --watch-path=./ index.js",
     "test": "jest"
   },
-  "author": "Matthew English",
+  "author": "Victoria Smith and Megan Hickey",
   "license": "MIT",
   "dependencies": {
     "@types/ejs": "^3.1.5",
@@ -18,7 +18,7 @@
     "jest": "^29.7.0"
   },
   "devDependencies": {
-    "prettier": "^3.9.4",
+    "prettier": "^3.9.6",
     "prettier-plugin-ejs": "^1.0.3"
   }
 }
